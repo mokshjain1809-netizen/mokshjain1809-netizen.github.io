@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triloki Milk Parlour – Ujjain</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8EE;
+    --amber: #E8963A;
+    --amber-dark: #C67A22;
+    --brown: #3D1F00;
+    --brown-light: #7A4A1E;
+    --white: #FFFFFF;
+    --gray: #F4F0EB;
+    --text: #2A1500;
+    --muted: #8A6A4A;
+    --green: #2D7A4F;
+    --red: #C0392B;
+    --shadow: 0 4px 24px rgba(61,31,0,0.10);
+    --radius: 16px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+  header{background:var(--brown);color:var(--white);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.18)}
+  .header-inner{max-width:960px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo-block{display:flex;align-items:center;gap:12px}
+  .logo-icon{width:44px;height:44px;background:var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .shop-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;line-height:1.1;letter-spacing:.01em}
+  .shop-tag{font-size:.72rem;color:rgba(255,255,255,.65);font-weight:300;margin-top:2px;letter-spacing:.04em}
+  .header-right{display:flex;align-items:center;gap:10px}
+  .wa-btn{background:var(--green);color:#fff;border:none;padding:8px 14px;border-radius:40px;font-size:.8rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;transition:background .2s}
+  .wa-btn:hover{background:#236640}
+  .cart-btn{background:var(--amber);color:var(--brown);border:none;padding:8px 16px;border-radius:40px;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;position:relative;transition:background .2s}
+  .cart-btn:hover{background:var(--amber-dark);color:#fff}
+  .cart-count{background:var(--brown);color:#fff;border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;min-width:20px}
+
+  .hero{position:relative;overflow:hidden;height:220px;background:var(--brown)}
+  .hero img{width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 18px}
+  .hero-text h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.5);line-height:1.2}
+  .hero-text p{color:rgba(255,255,255,.85);font-size:.88rem;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+
+  .filters{padding:16px 18px 0;max-width:960px;margin:0 auto}
+  .filter-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+  .filter-scroll::-webkit-scrollbar{display:none}
+  .filter-btn{border:2px solid var(--amber);background:transparent;color:var(--brown-light);padding:7px 16px;border-radius:30px;font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'DM Sans',sans-serif}
+  .filter-btn.active,.filter-btn:hover{background:var(--amber);color:var(--brown);border-color:var(--amber)}
+
+  .section-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--brown);padding:18px 18px 4px;max-width:960px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:10px 18px 100px;max-width:960px;margin:0 auto}
+  @media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+  .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(61,31,0,.14)}
+  .card-img{width:100%;aspect-ratio:1;object-fit:cover;background:#f0e8dc}
+  .card-body{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .card-name{font-weight:600;font-size:.88rem;color:var(--text);line-height:1.3}
+  .card-cat{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card-price{font-size:1rem;font-weight:700;color:var(--amber-dark)}
+  .variant-select{border:1.5px solid #e0d4c4;border-radius:8px;padding:5px 8px;font-size:.78rem;font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;cursor:pointer;width:100%}
+  .add-btn{background:var(--amber);color:var(--brown);border:none;border-radius:10px;padding:8px 0;font-size:.82rem;font-weight:700;cursor:pointer;margin-top:auto;transition:background .2s;font-family:'DM Sans',sans-serif;width:100%}
+  .add-btn:hover{background:var(--amber-dark);color:#fff}
+  .add-btn.added{background:var(--green);color:#fff}
+
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:flex-end;justify-content:center}
+  .overlay.open{display:flex}
+  @media(min-width:600px){.overlay{align-items:center}}
+  .cart-modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;animation:slideUp .25s ease}
+  @media(min-width:600px){.cart-modal{border-radius:20px;max-height:85vh}}
+  @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+  .modal-header{padding:18px 20px 14px;border-bottom:1.5px solid #f0e8dc;display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--brown)}
+  .close-btn{background:var(--gray);border:none;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center}
+  .cart-items{flex:1;overflow-y:auto;padding:12px 16px}
+  .cart-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:.95rem}
+  .cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0e8dc}
+  .ci-info{flex:1;min-width:0}
+  .ci-name{font-weight:600;font-size:.88rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ci-price{font-size:.8rem;color:var(--muted)}
+  .ci-subtotal{font-size:.88rem;font-weight:700;color:var(--amber-dark);white-space:nowrap}
+  .qty-ctrl{display:flex;align-items:center;gap:6px}
+  .qty-btn{background:var(--gray);border:none;width:26px;height:26px;border-radius:8px;font-size:1rem;cursor:pointer;color:var(--brown);font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s}
+  .qty-btn:hover{background:var(--amber)}
+  .qty-val{font-size:.9rem;font-weight:700;min-width:20px;text-align:center}
+  .rm-btn{background:none;border:none;color:var(--red);font-size:.75rem;cursor:pointer;padding:2px 4px;margin-left:4px}
+
+  .cart-footer{padding:14px 16px;border-top:1.5px solid #f0e8dc;background:#fff}
+  .total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .total-label{font-size:.95rem;font-weight:600;color:var(--muted)}
+  .total-amount{font-size:1.25rem;font-weight:900;font-family:'Playfair Display',serif;color:var(--brown)}
+  .checkout-btn{width:100%;background:var(--brown);color:#fff;border:none;padding:14px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+  .checkout-btn:hover{background:var(--brown-light)}
+
+  .order-modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;animation:slideUp .25s ease}
+  @media(min-width:600px){.order-modal{border-radius:20px;max-height:85vh}}
+  .form-body{flex:1;overflow-y:auto;padding:14px 18px}
+  .form-group{margin-bottom:14px}
+  .form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--brown-light);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+  .form-group input,.form-group textarea{width:100%;border:1.5px solid #e0d4c4;border-radius:10px;padding:10px 12px;font-size:.92rem;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:border .2s;background:#fff}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--amber)}
+  .form-group textarea{resize:vertical;min-height:72px}
+  .order-summary-box{background:var(--gray);border-radius:12px;padding:12px;margin-bottom:14px;font-size:.83rem}
+  .order-summary-box h4{font-weight:700;color:var(--brown);margin-bottom:8px;font-size:.88rem}
+  .order-summary-box .os-item{display:flex;justify-content:space-between;color:var(--muted);padding:2px 0}
+  .order-summary-box .os-total{display:flex;justify-content:space-between;color:var(--brown);font-weight:700;border-top:1px solid #ddd;margin-top:6px;padding-top:6px}
+  .submit-btn{width:100%;background:var(--amber);color:var(--brown);border:none;padding:14px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+  .submit-btn:hover{background:var(--amber-dark);color:#fff}
+  .submit-btn:disabled{opacity:.6;cursor:not-allowed}
+
+  .success-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;gap:16px}
+  .success-screen.show{display:flex}
+  .success-icon{font-size:3.5rem}
+  .success-screen h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown)}
+  .success-screen p{color:var(--muted);font-size:.9rem;line-height:1.5}
+  .wa-confirm-btn{background:var(--green);color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:8px}
+
+  .float-wa{position:fixed;bottom:24px;left:18px;z-index:150;background:var(--green);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;text-decoration:none;box-shadow:0 4px 16px rgba(45,122,79,.35);transition:transform .2s}
+  .float-wa:hover{transform:scale(1.1)}
+
+  .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--brown);color:#fff;padding:10px 22px;border-radius:30px;font-size:.85rem;font-weight:600;z-index:500;opacity:0;pointer-events:none;transition:all .3s;white-space:nowrap}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-icon">🥛</div>
+      <div>
+        <div class="shop-name">Triloki Milk Parlour</div>
+        <div class="shop-tag">Fresh Dairies &amp; Groceries delivered to your door</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="wa-btn" href="https://wa.me/916268801528" target="_blank" rel="noopener">
+        <span>💬</span><span>Chat</span>
+      </a>
+      <button class="cart-btn" onclick="openCart()">
+        🛒 Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <img src="https://i.ibb.co/D2Sft0t/IMG-0400.jpg" alt="Triloki Milk Parlour fresh dairy" loading="lazy">
+  <div class="hero-text">
+    <h2>Pure. Fresh. Delivered.</h2>
+    <p>📍 Ujjain, M.P &nbsp;|&nbsp; 📞 6268801528</p>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filter-scroll" id="filterRow">
+    <button class="filter-btn active" onclick="filterCat('All',this)">All</button>
+    <button class="filter-btn" onclick="filterCat('Dairy',this)">🥛 Dairy</button>
+    <button class="filter-btn" onclick="filterCat('Butter',this)">🧈 Butter</button>
+    <button class="filter-btn" onclick="filterCat('Bread',this)">🍞 Bread</button>
+    <button class="filter-btn" onclick="filterCat('Snacks',this)">🍟 Snacks</button>
+  </div>
+</div>
+
+<div class="section-title">Our Products</div>
+<div class="grid" id="productGrid"></div>
+
+<a class="float-wa" href="https://wa.me/916268801528" target="_blank" rel="noopener" title="Chat on WhatsApp">💬</a>
+<div class="toast" id="toast"></div>
+
+<!-- CART OVERLAY -->
+<div class="overlay" id="cartOverlay" onclick="closeCartOnBg(event)">
+  <div class="cart-modal">
+    <div class="modal-header">
+      <span class="modal-title">🛒 Your Cart</span>
+      <button class="close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="total-row">
+        <span class="total-label">Grand Total</span>
+        <span class="total-amount" id="cartTotal">₹0</span>
+      </div>
+      <button class="checkout-btn" onclick="openOrder()">Proceed to Order →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER OVERLAY -->
+<div class="overlay" id="orderOverlay" onclick="closeOrderOnBg(event)">
+  <div class="order-modal">
+    <div class="modal-header">
+      <span class="modal-title">📋 Place Your Order</span>
+      <button class="close-btn" onclick="closeOrder()">✕</button>
+    </div>
+
+    <div id="orderForm" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+      <div class="form-body">
+        <div class="order-summary-box" id="orderSummaryBox"></div>
+        <form id="checkoutForm" action="https://formspree.io/f/xaqdknee" method="POST">
+          <input type="hidden" name="_subject" value="New Order – Triloki Milk Parlour">
+          <input type="hidden" name="order_summary" id="hiddenSummary">
+          <input type="hidden" name="grand_total" id="hiddenTotal">
+
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" name="customer_name" id="custName" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" id="custPhone" required placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="form-group">
+            <label>Delivery Address *</label>
+            <textarea name="delivery_address" id="custAddr" required placeholder="House no., Street, Area, Ujjain"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Special Instructions</label>
+            <textarea name="special_instructions" id="custNote" placeholder="Any specific time, door instructions…"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">🛍️ Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h3>Order Placed Successfully!</h3>
+      <p>Triloki Milk Parlour will contact you on WhatsApp to confirm your order, availability, and delivery time.</p>
+      <a class="wa-confirm-btn" href="https://wa.me/916268801528" target="_blank" rel="noopener">
+        💬 Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    id: 1, name: "Gold Milk", category: "Dairy",
+    variants: [
+      {label:"1 Litre", price:69},
+      {label:"500 ml", price:35}
+    ],
+    img: "https://i.ibb.co/vxTmBbvz/IMG-0401.png", alt:"Gold Milk packet"
+  },
+  {
+    id: 2, name: "Chai Special Milk", category: "Dairy",
+    variants: [{label:"1 Litre", price:60}],
+    img: "https://i.ibb.co/7JkTGb7J/IMG-0402.png", alt:"Chai Special Milk packet"
+  },
+  {
+    id: 3, name: "Super Chai Milk", category: "Dairy",
+    variants: [{label:"1 Litre", price:60}],
+    img: "https://i.ibb.co/QvQWDHXr/IMG-0403.png", alt:"Super Chai Milk packet"
+  },
+  {
+    id: 4, name: "Shakti Milk", category: "Dairy",
+    variants: [{label:"500 ml", price:33}],
+    img: "https://i.ibb.co/mVVGyMWV/IMG-0404.png", alt:"Shakti Milk packet"
+  },
+  {
+    id: 5, name: "Taaza Milk", category: "Dairy",
+    variants: [{label:"500 ml", price:30}],
+    img: "https://i.ibb.co/CKxY7Wsr/IMG-0405.png", alt:"Taaza Milk packet"
+  },
+  {
+    id: 6, name: "Smart Milk", category: "Dairy",
+    variants: [{label:"500 ml", price:28}],
+    img: "https://i.ibb.co/zY8Q70h/IMG-0406.png", alt:"Smart Milk packet"
+  },
+  {
+    id: 7, name: "Amul Butter", category: "Butter",
+    variants: [{label:"100 g", price:61}],
+    img: "https://i.ibb.co/Ld9GrJ2f/IMG-0407.jpg", alt:"Amul Butter 100g"
+  },
+  {
+    id: 8, name: "Brown Bread", category: "Bread",
+    variants: [{label:"1 Pack", price:40}],
+    img: "https://i.ibb.co/Lh1KKg8v/IMG-0408.jpg", alt:"Brown Bread loaf"
+  },
+  {
+    id: 9, name: "Lays Chips", category: "Snacks",
+    variants: [{label:"1 Pack", price:10}],
+    img: "https://i.ibb.co/LXYstwhK/IMG-0410.jpg", alt:"Lays Chips packet"
+  }
+];
+
+let cart = JSON.parse(localStorage.getItem('triloki_cart') || '[]');
+let activeFilter = 'All';
+
+function saveCart(){ localStorage.setItem('triloki_cart', JSON.stringify(cart)); }
+
+function renderGrid(){
+  const grid = document.getElementById('productGrid');
+  const filtered = activeFilter === 'All' ? products : products.filter(p=>p.category===activeFilter);
+  grid.innerHTML = filtered.map(p=>{
+    const hasVariants = p.variants.length > 1;
+    const varSelect = hasVariants
+      ? `<select class="variant-select" id="var_${p.id}">${p.variants.map((v,i)=>`<option value="${i}">₹${v.price} – ${v.label}</option>`).join('')}</select>`
+      : `<div class="card-price">₹${p.variants[0].price} <span style="font-size:.75rem;color:var(--muted);font-weight:400">${p.variants[0].label}</span></div>`;
+    return `
+    <div class="card">
+      <img class="card-img" src="${p.img}" alt="${p.alt}" loading="lazy">
+      <div class="card-body">
+        <div class="card-cat">${p.category}</div>
+        <div class="card-name">${p.name}</div>
+        ${varSelect}
+        <button class="add-btn" id="btn_${p.id}" onclick="addToCart(${p.id})">+ Add to Cart</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCat(cat, el){
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid();
+}
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const sel = document.getElementById('var_'+id);
+  const vIdx = sel ? parseInt(sel.value) : 0;
+  const variant = p.variants[vIdx];
+  const key = `${id}_${vIdx}`;
+  const existing = cart.find(c=>c.key===key);
+  if(existing){ existing.qty += 1; }
+  else { cart.push({key, id, name:p.name, variant:variant.label, price:variant.price, qty:1}); }
+  saveCart();
+  updateCount();
+  flashBtn(id);
+  showToast(`${p.name} added to cart!`);
+}
+
+function flashBtn(id){
+  const btn = document.getElementById('btn_'+id);
+  if(!btn) return;
+  btn.textContent = '✓ Added!'; btn.classList.add('added');
+  setTimeout(()=>{ btn.textContent = '+ Add to Cart'; btn.classList.remove('added'); }, 1200);
+}
+
+function updateCount(){
+  const total = cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cartCount').textContent = total;
+}
+
+function openCart(){
+  renderCartItems();
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCart(){
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeCartOnBg(e){ if(e.target===e.currentTarget) closeCart(); }
+
+function renderCartItems(){
+  const wrap = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if(!cart.length){
+    wrap.innerHTML = `<div class="cart-empty">🛒<br>Your cart is empty.<br>Add some fresh items!</div>`;
+    footer.style.display='none';
+    return;
+  }
+  footer.style.display='block';
+  wrap.innerHTML = cart.map(item=>`
+    <div class="cart-item">
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price">${item.variant} · ₹${item.price} each</div>
+      </div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
+        <span class="qty-val">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
+      </div>
+      <span class="ci-subtotal">₹${item.price*item.qty}</span>
+      <button class="rm-btn" onclick="removeItem('${item.key}')">✕</button>
+    </div>
+  `).join('');
+  const grand = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('cartTotal').textContent = '₹'+grand;
+}
+
+function changeQty(key, delta){
+  const item = cart.find(c=>c.key===key);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(c=>c.key!==key);
+  saveCart(); updateCount(); renderCartItems();
+}
+
+function removeItem(key){
+  cart = cart.filter(c=>c.key!==key);
+  saveCart(); updateCount(); renderCartItems();
+}
+
+function openOrder(){
+  closeCart();
+  buildOrderSummary();
+  document.getElementById('orderForm').style.display='flex';
+  document.getElementById('successScreen').style.display='none';
+  document.getElementById('successScreen').classList.remove('show');
+  document.getElementById('orderOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeOrder(){
+  document.getElementById('orderOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeOrderOnBg(e){ if(e.target===e.currentTarget) closeOrder(); }
+
+function buildOrderSummary(){
+  const grand = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const lines = cart.map(c=>`${c.name} (${c.variant}) x${c.qty} = ₹${c.price*c.qty}`).join('\n');
+  document.getElementById('hiddenSummary').value = lines;
+  document.getElementById('hiddenTotal').value = '₹'+grand;
+
+  const box = document.getElementById('orderSummaryBox');
+  box.innerHTML = `<h4>Order Summary</h4>`
+    + cart.map(c=>`<div class="os-item"><span>${c.name} (${c.variant}) ×${c.qty}</span><span>₹${c.price*c.qty}</span></div>`).join('')
+    + `<div class="os-total"><span>Grand Total</span><span>₹${grand}</span></div>`;
+}
+
+document.getElementById('checkoutForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Sending…';
+
+  const data = new FormData(this);
+  try {
+    const res = await fetch(this.action, {method:'POST', body:data, headers:{Accept:'application/json'}});
+    if(res.ok){
+      cart=[]; saveCart(); updateCount();
+      document.getElementById('orderForm').style.display='none';
+      const sc = document.getElementById('successScreen');
+      sc.style.display='flex'; sc.classList.add('show');
+    } else {
+      alert('Oops! Something went wrong. Please call us at 6268801528.');
+    }
+  } catch(err){
+    alert('Network error. Please WhatsApp us directly at 6268801528.');
+  }
+  btn.disabled=false; btn.textContent='🛍️ Place Order';
+});
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+renderGrid();
+updateCount();
+</script>
+</body>
+</html>
